@@ -14,7 +14,9 @@ int main() {
     std::cout << "Введите текущую дату (день, месяц, год):\n";
     std::cin >> dayNow >> monthNow >> yearNow;
 
-    if (yearNow - birthYear >= 18 && monthNow >= birthMonth && dayNow > birthDay) {
+    if (yearNow - birthYear == 18 && monthNow >= birthMonth && dayNow > birthDay) {
+        std::cout << "Можно продать алкоголь.\n";
+    } else if (yearNow - birthYear >= 18 && monthNow > birthMonth) {
         std::cout << "Можно продать алкоголь.\n";
     } else {
         std::cout << "Нельзя продать алкоголь.\n";
