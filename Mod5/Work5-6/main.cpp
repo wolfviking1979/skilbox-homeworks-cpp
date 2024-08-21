@@ -18,7 +18,10 @@ int main() {
         std::cout << "Можно продать алкоголь.\n";
     } else if (yearNow - birthYear >= 18 && monthNow > birthMonth) {
         std::cout << "Можно продать алкоголь.\n";
-    } else {
+    } else if (yearNow - birthYear > 18) {
+        std::cout << "Можно продать алкоголь.\n";
+    }
+    else {
         std::cout << "Нельзя продать алкоголь.\n";
     }
     return 0;
