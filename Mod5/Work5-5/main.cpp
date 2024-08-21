@@ -13,11 +13,15 @@ int main() {
     std::cin >> sideA >> sideB >> sideC;
     std::cout << "Введите размеры второй коробки:\n";
     std::cin >> sideM >> sideN >> sideK;
-    if ((sideA < sideM && sideB < sideN && sideC < sideK)) {
-        std::cout << "Первая коробка помещается во вторую коробку\n";
-    }  else {
-        std::cout << "Первая коробка не помещается во втору коробку\n";
-    }
 
+    if ( sideA <= sideM && sideB <= sideN && sideC <= sideK) {
+        std::cout << "Первая коробка помещается во вторую" << std::endl;
+    } else if (sideA <= sideM && sideB <= sideK && sideC <= sideN) {
+        std::cout << "Первая коробка помещается во вторую" << std::endl;
+    } else if (sideA <= sideN && sideB <= sideM && sideC <= sideK) {
+        std::cout << "Первая коробка помещается во вторую" << std::endl;
+    } else {
+        std::cout << "Первая коробка не помещается во вторую" << std::endl;
+    }
     return 0;
 }
