@@ -6,18 +6,21 @@
 int main() {
     std::cout << "Подсчёт количества слов\n";
     std::cout << "--------------------------\n";
-    std::string text;
     std::cout << "Введите строку: \n";
-    std::getline(std::cin, text);
+    std::string str;
+    std::getline(std::cin, str);
+
     int count = 0;
-    for (int i = 0; i < text.length(); i++) {
-        if (text[i] != ' '   && (text[i + 1] == ' ' || text[i] == text.length())) {
-            count++;
-        }
-    }
-    // Если последний символ не пробел, то считаем, что это слово.
-    if (text.back() != ' ') {
+
+    if (str.length() > 0 && str[0] != ' ')
         count++;
+
+    /* Пропускаем первый символ, так как в цикле проверяем символ, который идёт перед текущим */
+    for (int i = 1; i < str.length(); ++i) {
+        /* Если предыдущий символ равен пробелу, а текущий нет */
+        if (str[i-1] == ' ' && str[i] != ' ')
+            count++;
     }
-    std::cout << "Ответ: " << count << "\n";
+
+    std::cout << count << '\n';
 }
