@@ -22,7 +22,7 @@ int main() {
             if (number[i] == '.') { // проверка на точку
                 point++;
             } else {
-                if (number[i] == '-') { // проверка на минус
+                if (number[0] == '-') { // проверка на минус
                     minus++;
                 } else {
                     correct = false;
@@ -31,7 +31,7 @@ int main() {
         }
     }
 
-    if (digit == 0 || point > 1 || minus > 1) {
+    if (digit == 0 || point > 1 || minus > 1 ) {
         correct = false;
     }
 
