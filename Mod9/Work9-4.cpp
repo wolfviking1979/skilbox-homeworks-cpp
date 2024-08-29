@@ -8,18 +8,19 @@
 int main() {
     std::string firstNumber;
     std::string secondNumber;
-
+    bool ok;
     std::cout << "«Быки и коровы» (дополнительное задание)\n";
-    std::cout << "------------------------------------\n";
-    std::cout << "Введите первое число: ";
-    std::cin >> firstNumber;
-    std::cout << "Введите второе число: ";
-    std::cin >> secondNumber;
+    std::cout << "-----------------------------------------\n";
 
     //Проверяем, является ли первое число 4-значным
     // если да, то проверяем, является ли второе число 4-значным.
-    bool ok = true;
+
     do {
+        std::cout << "Введите первое число: ";
+        std::cin >> firstNumber;
+        std::cout << "Введите второе число: ";
+        std::cin >> secondNumber;
+
         ok = firstNumber.length() == 4 && secondNumber.length() == 4;
         if (ok) {
             for (int i = 0; i < 4; ++i) {
@@ -31,10 +32,6 @@ int main() {
             std::cout << "----------------------------------\n";
             std::cout << "Ошибка ввода! Повторите попытку!\n";
             std::cout << "----------------------------------\n";
-            std::cout << "Введите первое число: ";
-            std::cin >> firstNumber;
-            std::cout << "Введите второе число: ";
-            std::cin >> secondNumber;
         }
     } while (!ok);
 
