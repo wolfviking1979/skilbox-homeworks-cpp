@@ -23,35 +23,45 @@ int main() {
 }
 
 bool emailLeft(std::string str) {
-    std::string suitable_symbols = "[],;<>\\"; // Не допустимые символы помимо латинских букв и цифр
+    std::string suitable_symbols = "[],;<>\\"; // допустимые символы помимо латинских букв и цифр
     int all_presents = 0; // количество введенных вариантов
     bool valid = true;
+    std::string tempStr;
     for (int i = 0; str[i] != '\0'; i++) {
-        if (str[0] == '.' || suitable_symbols.find(str[i]) != std::string::npos) {
-            valid = false;
-        }
-
-        if (i > 0 && str[i] == '.' && str[i - 1] == '.') {  // две точки подряд
-            valid = false;
-        } else if (i > 0 && str[i] == '@') { // наличие @
+        tempStr += str[i];
+        if (str[i] == '@' && str[i + 1]== '@') {
+            valid = false; // два @ в строке
+        } else if (str[i] == '@') {
             all_presents++;
+            break;
+        } else if (str[i] == '.' && str[i + 1] == '@') {
+            valid = false;
+        } else if (str[0] == '.' || suitable_symbols.find(str[i]) != std::string::npos) {
+            valid = false;
+        } else if (i > 0 && str[i] == '.' && str[i + 1] == '.') {  // две точки подряд
+            valid = false;
         }
-    }
 
-    // проверка на количество введенных символов @ в строке и на длину
-    if( all_presents == 0 || all_presents > 1 || str.length() <= 0 || str.length() > 64) {
+    }
+    if( all_presents > 1 || tempStr.length() < 2 || tempStr.length() > 64) { // наличие двух @ в строчке или без @ в строке
         valid = false;
     }
     return valid;
 }
 
-// проверка на правильность правой части email-адреса
 bool emailRight(std::string str) {
     bool valid = true; // проверка на правильность
+    std::string tempStr;
     for (int i = str.length() - 1; str[i] != '@'; i--) {
+        tempStr += str[i]; // добавление в строку символов
         if (str[i] == '_') {
             valid = false; // наличие символа _ в строке
+        } else if (i > 0 && str[i] == '.' && str[i + 1] == '.') {  // две точки подряд
+            valid = false;
         }
+    }
+    if (tempStr.empty()) {
+        valid = false; // длина строки на пусто
     }
     return valid;
 }
