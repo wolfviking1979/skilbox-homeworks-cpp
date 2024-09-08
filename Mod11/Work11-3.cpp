@@ -46,22 +46,23 @@ int get_address_part(std::string ip, int partIp) {
                 part1 += ip[i];
             }
         } else if (dotCount == 1) {
-            if (ip[i]!= separator) {
+            if (ip[i] != separator) {
                 part2 += ip[i];
             }
         } else if (dotCount == 2) {
-            if (ip[i]!= separator) {
+            if (ip[i] != separator) {
                 part3 += ip[i];
             }
         } else if (dotCount == 3) {
-            if (ip[i]!= separator) {
+            if (ip[i] != separator) {
                 part4 += ip[i];
             }
         }
     }
     // Проверка на количество точек в ip адресе
-    if (dotCount != 3) {
-        isGood = false;
+    if (dotCount < 3) {
+        std::cout << "Неверный формат IP-адреса";
+        return -1;
     }
 
     // Проверка на валидность ip октетов
@@ -84,38 +85,22 @@ int get_address_part(std::string ip, int partIp) {
     }
 
     if (isGood) {
-        // Проверка выбора октета и длину октета
+        // Проверка выбора октета
         switch (partIp) {
             case 0: {
                 partRes = std::stoi(part1);
-                if (partRes > 255) {
-                    isGood = false;
-                }
                 break;
             }
             case 1: {
                 partRes = std::stoi(part2);
-                if (partRes > 255) {
-                    isGood = false;
-                }
                 break;
             }
             case 2: {
                 partRes = std::stoi(part3);
-                if (partRes > 255) {
-                    isGood = false;
-                }
                 break;
             }
             case 3: {
                 partRes = std::stoi(part4);
-                if (partRes > 255) {
-                    isGood = false;
-                }
-                break;
-            }
-            default: {
-                isGood = false;
                 break;
             }
         }
@@ -129,17 +114,28 @@ bool isIpValid(std::string part) {
     bool isGood = true;
     char firstDigit;
     std::string s;
-    // Проверка на цифры в ip адресе
+    int numberOctet;
+    // Проверка на цифры в октете
     for (int i = 0; i < part.length(); i++) {
-        s+= part[i];
+        s += part[i];
         if (!isdigit(part[i])) {
             isGood = false;
         }
     }
-    // Проверка на первую цифру в ip адресе. Если первая цифра равна нулю, то ошибка.
+    // Проверка на первую цифру в октете. Если первая цифра равна нулю, то ошибка.
     firstDigit = s.front();
     if (s.length() > 1 && firstDigit == '0') {
         isGood = false;
+    }
+
+    if (part.empty()) {  // Проверка на пустой октет
+        isGood = false;
+    } else {
+        numberOctet = std::stoi(part);
+        // Проверка на длину ip октета
+        if (numberOctet < 0 || numberOctet > 255) {
+            isGood = false;
+        }
     }
     return isGood;
 }
